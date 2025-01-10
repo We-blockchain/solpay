@@ -1,6 +1,7 @@
-import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL, PublicKey, type Finality } from "@solana/web3.js";
 import { getConnection } from "./connection";
 import { getAccount, getAssociatedTokenAddress } from "@solana/spl-token";
+import type { CoinType } from "./type";
 
 interface MintAccount {
     mintAddress?: PublicKey,

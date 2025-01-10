@@ -3,6 +3,7 @@ import { PublicKey, type AccountInfo, type Context } from "@solana/web3.js";
 import { getConnection } from "./connection";
 import { v7 as uuid } from "uuid";
 import { parseTxBalanceChange } from './tx';
+import type { Order, OrderConfig } from './type';
 
 let orders: Map<string, Promise<number>> = new Map();
 

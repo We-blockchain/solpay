@@ -1,5 +1,6 @@
 import { PublicKey, type ParsedTransactionWithMeta } from "@solana/web3.js";
 import { Coin } from "./coin";
+import type { CoinType } from "./type";
 
 export function parseTxBalanceChange(tx: ParsedTransactionWithMeta, owner: PublicKey, coin_type: CoinType): number {
     switch (coin_type) {
