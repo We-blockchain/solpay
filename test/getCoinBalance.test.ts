@@ -12,5 +12,5 @@ test('getCoinBalance', async () => {
 
     expect(getCoinBalance(owner, "USDT")).rejects.not.toBeNull();
     expect(getCoinBalance(owner, "USDC")).rejects.not.toBeNull();
-    expect(getCoinBalance(owner, "TEST")).resolves.toBeNumber();
+    expect(getCoinBalance(owner, "TEST-Dev")).resolves.toBeNumber();
 });

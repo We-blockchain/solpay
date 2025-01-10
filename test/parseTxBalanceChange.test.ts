@@ -13,7 +13,7 @@ test('parseTxBalanceChange', async () => {
     let tx = await getConnection().getParsedTransaction(signature);
 
     expect(parseTxBalanceChange(tx!!, signer, "SOL")).toBe(-0.000005);
-    expect(parseTxBalanceChange(tx!!, signer, "TEST")).toBe(-10);
+    expect(parseTxBalanceChange(tx!!, signer, "TEST-Dev")).toBe(-10);
     expect(parseTxBalanceChange(tx!!, owner, "SOL")).toBe(0);
-    expect(parseTxBalanceChange(tx!!, owner, "TEST")).toBe(10);
+    expect(parseTxBalanceChange(tx!!, owner, "TEST-Dev")).toBe(10);
 });

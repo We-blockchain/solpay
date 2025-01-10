@@ -7,7 +7,7 @@ setCluster('devnet');
 test('createOrder', async () => {
     var order = createOrder({
         pay_to: "",
-        coin_type: "SOL", 
+        coin_type: "SOL",
         coin_amount: 0.00001,
         timeout: 30_000,
     });
@@ -15,7 +15,7 @@ test('createOrder', async () => {
 
     var order = createOrder({
         pay_to: "BSzG62Khqw5pbbWPmoe8iZekExekFQBJmjYhiXhcVvtS",
-        coin_type: "SOL", 
+        coin_type: "SOL",
         coin_amount: 0.00001,
         timeout: 30_000,
     });
@@ -23,7 +23,7 @@ test('createOrder', async () => {
 
     var order = createOrder({
         pay_to: "BSzG62Khqw5pbbWPmoe8iZekExekFQBJmjYhiXhcVvtS",
-        coin_type: "TEST", 
+        coin_type: "TEST-Dev",
         coin_amount: 0.00001,
         timeout: 30_000,
     });

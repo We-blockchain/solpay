@@ -7,7 +7,7 @@ setCluster('devnet');
 test('orderPaid', async () => {
     var order = await createOrder({
         pay_to: "BSzG62Khqw5pbbWPmoe8iZekExekFQBJmjYhiXhcVvtS",
-        coin_type: "TEST", 
+        coin_type: "SOL",
         coin_amount: 0.00001,
         timeout: 1_000,
     });
@@ -15,11 +15,12 @@ test('orderPaid', async () => {
 
     var order = await createOrder({
         pay_to: "BSzG62Khqw5pbbWPmoe8iZekExekFQBJmjYhiXhcVvtS",
-        coin_type: "TEST", 
-        coin_amount: 0.00000,
+        coin_type: "TEST-Dev",
+        coin_amount: 0.00001,
         timeout: 60_000,
         commitment: 'confirmed',
     });
     console.log(order); // Manual payment
     expect(orderPaid(order)).resolves.toBeTrue();
+    expect(orderPaid(order)).resolves.toBeFalse(); // Promise removed
 });

@@ -2,7 +2,7 @@ type Finality = 'confirmed' | 'finalized';
 
 type Commitment = 'processed' | 'confirmed' | 'finalized' | 'recent' | 'single' | 'singleGossip' | 'root' | 'max';
 
-type CoinType = "SOL" | "USDT" | "USDC" | "TEST";
+type CoinType = "SOL" | "USDT" | "USDC" | "USDC-Dev" | "TEST-Dev";
 
 interface OrderConfig {
     /** Solana account address, or Token account's owner */

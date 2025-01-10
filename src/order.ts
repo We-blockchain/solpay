@@ -6,6 +6,20 @@ import { parseTxBalanceChange } from './tx';
 
 let orders: Map<string, Promise<number>> = new Map();
 
+/**
+ * Example:
+ * ```
+    const order = await createOrder({
+        pay_to: "BSzG62Khqw5pbbWPmoe8iZekExekFQBJmjYhiXhcVvtS",
+        coin_type: "SOL", // Optional: "USDT", "USDC"
+        coin_amount: 0.00001,
+        timeout: 60_000,
+    });
+ * ```
+ * @param config {@link OrderConfig}
+ * @returns 
+ * @see {@link orderPaid()}
+ */
 export async function createOrder(config: OrderConfig): Promise<Order> {
     let id = uuid(),
         payTo = new PublicKey(config.pay_to),
@@ -54,6 +68,15 @@ export async function createOrder(config: OrderConfig): Promise<Order> {
     };
 }
 
+/**
+ * Example:
+ * ```
+    const isPaid = await orderPaid(order);
+ * ```
+ * @param config {@link OrderConfig}
+ * @returns 
+ * @see {@link orderPaid()}
+ */
 export async function orderPaid(order: Order): Promise<boolean> {
     try {
         let paid = await orders.get(order.id);
@@ -61,5 +84,7 @@ export async function orderPaid(order: Order): Promise<boolean> {
     } catch (err) {
         // Timeout, unpaid
         return false;
+    } finally {
+        orders.delete(order.id);
     }
 }

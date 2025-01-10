@@ -14,7 +14,12 @@ export var Coin: Record<CoinType, MintAccount> = {
     /** https://explorer.solana.com/address/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v */
     USDC: { mintAddress: new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"), decimals: 6 },
     /** https://explorer.solana.com/address/Eg7H518ZvU4UhtwE8usYhNfRW5vJEgAQ1SX8323qpfjM?cluster=devnet */
-    TEST: { mintAddress: new PublicKey("Eg7H518ZvU4UhtwE8usYhNfRW5vJEgAQ1SX8323qpfjM"), decimals: 9 },
+    ["TEST-Dev"]: { mintAddress: new PublicKey("Eg7H518ZvU4UhtwE8usYhNfRW5vJEgAQ1SX8323qpfjM"), decimals: 9 },
+    /**
+     * Faucet: https://spl-token-faucet.com/?token-name=USDC
+     * https://explorer.solana.com/address/Eg7H518ZvU4UhtwE8usYhNfRW5vJEgAQ1SX8323qpfjM?cluster=devnet
+     */
+    ["USDC-Dev"]: { mintAddress: new PublicKey("Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr"), decimals: 6 },
 }
 
 export async function getATA(owner: PublicKey, coin_type: CoinType): Promise<PublicKey> {
