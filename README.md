@@ -26,7 +26,13 @@ const isPaid = await orderPaid(order); // Await payment
 Use memo to mark a order, for example:
 ```
 $ order_id=01944f23-df45-75bb-a411-d05dd819c92a
-$ solana transfer BSzG62Khqw5pbbWPmoe8iZekExekFQBJmjYhiXhcVvtS 0.1 --with-memo ${order_id}
+$ owner=BSzG62Khqw5pbbWPmoe8iZekExekFQBJmjYhiXhcVvtS
+$ solana transfer ${owner} 0.1 --with-memo ${order_id}
+```
+SPL Token:
+```
+$ mint=Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr
+$ spl-token transfer ${mint} 0.1 ${owner} --with-memo ${order_id}
 ```
 
 ## dev

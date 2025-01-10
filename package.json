@@ -2,7 +2,7 @@
   "name": "solpay",
   "description": "Solana Payment API.",
   "keywords": ["solana", "payment", "SOL", "USDT", "USDC"],
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "author": "develon",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "tsconfig.json"
   ],
   "scripts": {
+    "test": "bun test --timeout 300000",
     "build": "tsc --build ./tsconfig.build.json"
   },
   "devDependencies": {

@@ -16,8 +16,6 @@ let orders: Map<string, Promise<number>> = new Map();
         timeout: 60_000,
     });
  * ```
- * @param config {@link OrderConfig}
- * @returns 
  * @see {@link orderPaid()}
  */
 export async function createOrder(config: OrderConfig): Promise<Order> {
@@ -73,9 +71,7 @@ export async function createOrder(config: OrderConfig): Promise<Order> {
  * ```
     const isPaid = await orderPaid(order);
  * ```
- * @param config {@link OrderConfig}
- * @returns 
- * @see {@link orderPaid()}
+ * @see {@link createOrder()}
  */
 export async function orderPaid(order: Order): Promise<boolean> {
     try {
