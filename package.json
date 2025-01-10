@@ -1,9 +1,25 @@
 {
   "name": "solpay",
-  "version": "0.0.1",
   "description": "Solana Payment API.",
-  "module": "src/index.ts",
-  "type": "module",
+  "keywords": ["solana", "payment", "SOL", "USDT", "USDC"],
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "author": "develon",
+  "license": "MIT",
+  "repository": "We-blockchain/solpay",
+  "homepage": "https://github.com/We-blockchain/solpay",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    "lib",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "build": "tsc --build ./tsconfig.build.json"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

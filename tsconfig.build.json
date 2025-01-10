@@ -1,0 +1,9 @@
+{
+    "exclude": ["./test/*.ts"], // test.ts由node-dev-server使用
+    "compilerOptions": {
+        "module": "CommonJS",
+        "outDir": "./lib",
+        "declaration": true,
+        "declarationDir": "./lib",
+    },
+}
