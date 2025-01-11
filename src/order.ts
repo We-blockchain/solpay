@@ -1,11 +1,11 @@
 import { getATA, getCoinBalance } from './coin';
-import { PublicKey, type AccountInfo, type Context } from "@solana/web3.js";
+import { PublicKey, type AccountInfo, type Context, type ParsedTransactionWithMeta } from "@solana/web3.js";
 import { getConnection } from "./connection";
 import { v7 as uuid } from "uuid";
 import { parseTxBalanceChange } from './tx';
 import type { Order, OrderConfig } from './type';
 
-let orders: Map<string, Promise<number>> = new Map();
+let orders: Map<string, Promise<ParsedTransactionWithMeta>> = new Map();
 
 /**
  * Example:
@@ -22,7 +22,7 @@ let orders: Map<string, Promise<number>> = new Map();
 export async function createOrder(config: OrderConfig): Promise<Order> {
     let id = uuid(),
         payTo = new PublicKey(config.pay_to),
-        resolve: (value: number | PromiseLike<number>) => void,
+        resolve: (value: ParsedTransactionWithMeta) => void,
         reject: (reason?: any) => void,
         timeout: NodeJS.Timer;
     orders.set(id, new Promise((...args) => [resolve, reject] = args));
@@ -48,7 +48,7 @@ export async function createOrder(config: OrderConfig): Promise<Order> {
                 if (parsedTx) {
                     let change = await parseTxBalanceChange(parsedTx, payTo, config.coin_type);
                     if (change < config.coin_amount) return;
-                    resolve(change);
+                    resolve(parsedTx);
                     getConnection().removeAccountChangeListener(subscription);
                     clearTimeout(timeout);
                 }
@@ -70,17 +70,21 @@ export async function createOrder(config: OrderConfig): Promise<Order> {
 /**
  * Example:
  * ```
-    const isPaid = await orderPaid(order);
+ * const parsedTransactionWithMeta = await orderPaid(order);
+ * 
+ * if (parsedTransactionWithMeta) {
+ *      const signature = parsedTransactionWithMeta.transaction.signatures[0];
+ * }
  * ```
  * @see {@link createOrder()}
  */
-export async function orderPaid(order: Order): Promise<boolean> {
+export async function orderPaid(order: Order): Promise<ParsedTransactionWithMeta | undefined> {
     try {
-        let paid = await orders.get(order.id);
-        return paid === undefined ? false : paid >= 0;
+        let parsedTransactionWithMeta = await orders.get(order.id);
+        return parsedTransactionWithMeta;
     } catch (err) {
         // Timeout, unpaid
-        return false;
+        return undefined;
     } finally {
         orders.delete(order.id);
     }

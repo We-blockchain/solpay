@@ -18,7 +18,7 @@ export var Coin: Record<CoinType, MintAccount> = {
     ["TEST-Dev"]: { mintAddress: new PublicKey("Eg7H518ZvU4UhtwE8usYhNfRW5vJEgAQ1SX8323qpfjM"), decimals: 9 },
     /**
      * Faucet: https://spl-token-faucet.com/?token-name=USDC
-     * https://explorer.solana.com/address/Eg7H518ZvU4UhtwE8usYhNfRW5vJEgAQ1SX8323qpfjM?cluster=devnet
+     * https://explorer.solana.com/address/Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr?cluster=devnet
      */
     ["USDC-Dev"]: { mintAddress: new PublicKey("Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr"), decimals: 6 },
 }
