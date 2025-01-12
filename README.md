@@ -18,7 +18,10 @@ const order = await createOrder({
     timeout: 60_000, // 60s
 });
 
-const isPaid = await orderPaid(order); // Await payment
+const parsedTransactionWithMeta = await orderPaid(order); // Await payment
+if (parsedTransactionWithMeta) {
+    const signature = parsedTransactionWithMeta.transaction.signatures[0];
+}
 ```
 
 ## payment

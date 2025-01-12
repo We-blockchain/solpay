@@ -3,7 +3,7 @@
     "compilerOptions": {
         "module": "CommonJS",
         "outDir": "./lib",
-        "declaration": true,
+        "declaration": false,
         "declarationDir": "./lib",
     },
 }

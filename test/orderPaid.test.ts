@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test';
-import { createOrder, orderPaid } from '../src';
+import { confirmOrderPaid, createOrder, orderPaid } from '../src';
 import { setCluster } from '../src/connection';
 
 setCluster('devnet');
@@ -23,4 +23,6 @@ test('orderPaid', async () => {
     console.log(order); // Manual payment
     expect(orderPaid(order)).resolves.not.toBeUndefined();
     expect(orderPaid(order)).resolves.toBeUndefined(); // Promise removed
+
+    expect(confirmOrderPaid(order)).resolves.not.toBeUndefined();
 });
