@@ -2,7 +2,7 @@
   "name": "solpay",
   "description": "Solana Payment API.",
   "keywords": ["solana", "payment", "SOL", "USDT", "USDC"],
-  "version": "0.0.7",
+  "version": "0.0.9",
   "main": "lib/index.js",
   "author": "develon",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "access": "public"
   },
   "files": [
+    "src",
     "lib",
     "package.json",
     "tsconfig.json",
@@ -29,8 +30,10 @@
   },
   "dependencies": {
     "@develon/js": "^2.0.1",
+    "@solana/pay": "^0.2.5",
     "@solana/spl-token": "^0.4.9",
     "@solana/web3.js": "^1.98.0",
+    "bignumber.js": "^9.1.2",
     "uuid": "^11.0.4"
   }
 }
