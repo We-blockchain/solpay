@@ -38,6 +38,14 @@ $ mint=Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr
 $ spl-token transfer ${mint} 0.1 ${owner} --with-memo ${order_id}
 ```
 
+## Solana Pay URL
+
+See: [Solana Pay Specification](https://github.com/anza-xyz/solana-pay/blob/master/SPEC.md)
+
+```
+getSolanaPayURL(order); // solana:BSzG62Khqw5pbbWPmoe8iZekExekFQBJmjYhiXhcVvtS?amount=1.23&memo=order_id_xxx
+```
+
 ## dev
 
 To install dependencies:
