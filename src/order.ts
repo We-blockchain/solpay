@@ -91,7 +91,9 @@ export async function orderPaid(order: Order): Promise<ParsedTransactionWithMeta
 }
 
 /**
- * Confirm order via blockchain
+ * Validate order via blockchain.
+ * 
+ * See also: https://github.com/anza-xyz/solana-pay/blob/master/core/src/validateTransfer.ts
  */
 export async function confirmOrderPaid(order: Order, _options: SignaturesForAddressOptions = {}): Promise<ParsedTransactionWithMeta | undefined> {
     try {
@@ -106,7 +108,15 @@ export async function confirmOrderPaid(order: Order, _options: SignaturesForAddr
 
         let txs = await getConnection().getSignaturesForAddress(reference, options, finality);
         let tx = txs.find(tx => tx.memo ?.match(/^\[\d+\] (.*)/) ?.[1] == order.id); // Memo match
-        if (tx) return await getConnection().getParsedTransaction(tx.signature, finality) || undefined;
+
+        // See also: https://github.com/anza-xyz/solana-pay/blob/master/core/src/validateTransfer.ts
+        if (tx) {
+            let parsedTx = await getConnection().getParsedTransaction(tx.signature, finality) || undefined;
+            if (parsedTx) {
+                let change = await parseTxBalanceChange(parsedTx!!, owner, order.info.coin_type);
+                if (change >= order.info.coin_amount) return parsedTx;
+            }
+        }
 
         if (txs.length >= limit) {
             return confirmOrderPaid(order, { ...options, before: txs[txs.length - 1].signature });
