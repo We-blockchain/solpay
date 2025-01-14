@@ -2,7 +2,7 @@
   "name": "solpay",
   "description": "Solana Payment API.",
   "keywords": ["solana", "payment", "SOL", "USDT", "USDC"],
-  "version": "0.0.10",
+  "version": "0.1.0",
   "main": "lib/index.js",
   "author": "develon",
   "license": "MIT",
