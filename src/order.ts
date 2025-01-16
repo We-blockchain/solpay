@@ -5,6 +5,7 @@ import { v7 as uuid } from "uuid";
 import { parseTxBalanceChange } from './tx';
 import type { Order, OrderConfig } from './type';
 
+const DUST = 0.0000_0000_01;
 let orders: Map<string, Promise<ParsedTransactionWithMeta>> = new Map();
 
 /**
@@ -22,6 +23,7 @@ let orders: Map<string, Promise<ParsedTransactionWithMeta>> = new Map();
 export async function createOrder(config: OrderConfig): Promise<Order> {
     let id = uuid(),
         payTo = new PublicKey(config.pay_to),
+        coinAmount = config.coin_amount,
         resolve: (value: ParsedTransactionWithMeta) => void,
         reject: (reason?: any) => void,
         timeout: NodeJS.Timer;
@@ -37,7 +39,7 @@ export async function createOrder(config: OrderConfig): Promise<Order> {
             let balanceUpdated = await getCoinBalance(payTo, config.coin_type, config.commitment);
             let balanceChange = balanceUpdated - balance;
             balance = balanceUpdated;
-            if (balanceChange < config.coin_amount) return;
+            if (balanceChange + DUST < coinAmount) return;
 
             let txs = await getConnection().getSignaturesForAddress(account, { until: lastTx }, config.commitment);
             lastTx = txs[0] ?.signature || lastTx;
@@ -47,7 +49,7 @@ export async function createOrder(config: OrderConfig): Promise<Order> {
                 let parsedTx = await getConnection().getParsedTransaction(tx.signature, config.commitment);
                 if (parsedTx) {
                     let change = await parseTxBalanceChange(parsedTx, payTo, config.coin_type);
-                    if (change < config.coin_amount) return;
+                    if (change + DUST < coinAmount) return;
                     resolve(parsedTx);
                     getConnection().removeAccountChangeListener(subscription);
                     clearTimeout(timeout);
@@ -114,7 +116,7 @@ export async function confirmOrderPaid(order: Order, _options: SignaturesForAddr
             let parsedTx = await getConnection().getParsedTransaction(tx.signature, finality) || undefined;
             if (parsedTx) {
                 let change = await parseTxBalanceChange(parsedTx!!, owner, order.info.coin_type);
-                if (change >= order.info.coin_amount) return parsedTx;
+                if (change + DUST >= order.info.coin_amount) return parsedTx;
             }
         }
 
